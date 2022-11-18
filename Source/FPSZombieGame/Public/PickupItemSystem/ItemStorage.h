@@ -25,7 +25,7 @@ class FPSZOMBIEGAME_API IItemStorage
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	FOnItemStorageUpdated ItemStorageUpdated;
-	bool virtual AddItem(UItemDataAsset* ItemToAdd) PURE_VIRTUAL(AddItem,return false;);
-	bool virtual RemoveItem(UItemDataAsset* ItemToRemove) PURE_VIRTUAL(RemoveItem,return false;);
-	TArray<UItemDataAsset*> virtual GetItems() PURE_VIRTUAL(RemoveItem,return TArray<UItemDataAsset*>(););
+	bool virtual AddItem(UItemDataAsset* ItemToAdd) PURE_VIRTUAL(AddItem, return {};);
+	bool virtual RemoveItem(UItemDataAsset* ItemToRemove) PURE_VIRTUAL(RemoveItem, return {};);
+	TArray<UItemDataAsset*> virtual GetItems() PURE_VIRTUAL(RemoveItem, return {};);
 };
