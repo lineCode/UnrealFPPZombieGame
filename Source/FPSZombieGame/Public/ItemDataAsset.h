@@ -6,6 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "ItemDataAsset.generated.h"
 
+class IItemStorage;
 /**
  * 
  */
@@ -13,5 +14,7 @@ UCLASS()
 class FPSZOMBIEGAME_API UItemDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
-	
+
+public:
+	IItemStorage* GetCurrentItemStorage();
 };

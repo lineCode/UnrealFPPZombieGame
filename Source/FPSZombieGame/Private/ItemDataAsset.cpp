@@ -3,3 +3,7 @@
 
 #include "ItemDataAsset.h"
 
+IItemStorage* UItemDataAsset::GetCurrentItemStorage()
+{
+	return nullptr;
+}
