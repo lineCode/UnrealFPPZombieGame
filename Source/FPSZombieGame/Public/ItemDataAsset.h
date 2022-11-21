@@ -6,7 +6,11 @@
 #include "Engine/DataAsset.h"
 #include "ItemDataAsset.generated.h"
 
+class FItemMockBuilder;
+class IPickupService;
 class IItemStorage;
+class IUsable;
+
 /**
  * 
  */
@@ -15,6 +19,26 @@ class FPSZOMBIEGAME_API UItemDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
 
+	friend FItemMockBuilder;
+
+	UPROPERTY(EditDefaultsOnly, meta=(MustImplement = "Usable", DisallowedClasses = "ActorComponent"))
+	TSubclassOf<UObject> UsableInject;
+
+	UPROPERTY(EditDefaultsOnly, meta=(MustImplement = "PickupService", DisallowedClasses = "ActorComponent"))
+	TSubclassOf<UObject> PickupServiceInject;
+
+	UPROPERTY(VisibleAnywhere)
+	TScriptInterface<IUsable> Usable;
+
+	UPROPERTY(VisibleAnywhere)
+	TScriptInterface<IPickupService> PickupService;
+
 public:
-	IItemStorage* GetCurrentItemStorage();
+
+	UItemDataAsset();
+
+	TScriptInterface<IItemStorage> CurrentItemStorage;
+
+	IUsable* GetUsable();
+	IPickupService* GetPickupService();
 };

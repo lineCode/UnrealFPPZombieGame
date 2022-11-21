@@ -37,6 +37,6 @@ public:
 	virtual TArray<UItemDataAsset*> GetItems() override;
 
 	//Cheat to change implementation ig
-	void SetItemStorageImplementation(TScriptInterface<IItemStorage> Interface);
+	void SetItemStorageImplementation(IItemStorage* Interface);
 		
 };

@@ -4,42 +4,56 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "PickupItemSystem\ItemStorage.h"
+#include "PickupItemSystem\AttachPlace.h"
+#include "InputAction.h"
 #include "InputActionValue.h"
 #include "FPSZombieGameCharacter.generated.h"
-
+class FPSCharacterMockBuilder;
 class UInputComponent;
 class USkeletalMeshComponent;
 class USceneComponent;
 class UCameraComponent;
 class UAnimMontage;
 class USoundBase;
+class UInputMappingContext;
+class UItemStorageComponent;
+class UInputMappingContext;
 
 UCLASS(config=Game)
-class AFPSZombieGameCharacter : public ACharacter
+class AFPSZombieGameCharacter : public ACharacter, public IAttachPlace
 {
 	GENERATED_BODY()
 
+	friend FPSCharacterMockBuilder;
+
 	/** Pawn mesh: 1st person view (arms; seen only by self) */
 	UPROPERTY(VisibleDefaultsOnly, Category=Mesh)
-	USkeletalMeshComponent* Mesh1P;
+	TObjectPtr<USkeletalMeshComponent> Mesh1P;
 
 	/** First person camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-	UCameraComponent* FirstPersonCameraComponent;
+	TObjectPtr<UCameraComponent> FirstPersonCameraComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = PlayerInventory, meta = (AllowPrivateAccess = "true"))
+	TObjectPtr<UItemStorageComponent> PlayerItemStorageComponent;
 
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	class UInputMappingContext* DefaultMappingContext;
+	TObjectPtr<UInputMappingContext> DefaultMappingContext;
 
 	/** Jump Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	class UInputAction* JumpAction;
+	TObjectPtr<UInputAction> JumpAction;
 
 	/** Move Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
-	class UInputAction* MoveAction;
+	TObjectPtr<UInputAction> MoveAction;
 
-	
+	/** Use Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	TObjectPtr<UInputAction> UseAction;
+
 public:
 	AFPSZombieGameCharacter();
 
@@ -52,14 +66,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* LookAction;
 
-	/** Bool for AnimBP to switch to another animation set */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Weapon)
-	bool bHasRifle;
-
-	/** Setter to set the bool */
-	UFUNCTION(BlueprintCallable, Category = Weapon)
-	void SetHasRifle(bool bNewHasRifle);
-
 	/** Getter for the bool */
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	bool GetHasRifle();
@@ -71,17 +77,19 @@ protected:
 	/** Called for looking input */
 	void Look(const FInputActionValue& Value);
 
-protected:
+	UFUNCTION()
+	void Use();
+
 	// APawn interface
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	// End of APawn interface
 
 public:
 	/** Returns Mesh1P subobject **/
-	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
+	virtual USkeletalMeshComponent* GetMeshWithSockets() { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	IItemStorage* GetItemStorageComponent();
 
 };
-

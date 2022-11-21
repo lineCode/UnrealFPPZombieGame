@@ -7,6 +7,10 @@
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "PickupItemSystem\ItemStorage.h"
+#include "PickupItemSystem\ItemStorageComponent.h"
+#include "PickupItemSystem\Pickupable.h"
+#include "PickupItemSystem\PickupService.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -14,9 +18,6 @@
 
 AFPSZombieGameCharacter::AFPSZombieGameCharacter()
 {
-	// Character doesnt have a rifle at start
-	bHasRifle = false;
-	
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(55.f, 96.0f);
 		
@@ -35,6 +36,7 @@ AFPSZombieGameCharacter::AFPSZombieGameCharacter()
 	//Mesh1P->SetRelativeRotation(FRotator(0.9f, -19.19f, 5.2f));
 	Mesh1P->SetRelativeLocation(FVector(-30.f, 0.f, -150.f));
 
+	PlayerItemStorageComponent = CreateDefaultSubobject<UItemStorageComponent>(TEXT("PlayerStorageComp"));
 }
 
 void AFPSZombieGameCharacter::BeginPlay()
@@ -69,7 +71,14 @@ void AFPSZombieGameCharacter::SetupPlayerInputComponent(class UInputComponent* P
 
 		//Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AFPSZombieGameCharacter::Look);
+
+		EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Triggered, this, &AFPSZombieGameCharacter::Use);
 	}
+}
+
+IItemStorage* AFPSZombieGameCharacter::GetItemStorageComponent()
+{
+	return Cast<IItemStorage>(PlayerItemStorageComponent);
 }
 
 
@@ -99,12 +108,26 @@ void AFPSZombieGameCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void AFPSZombieGameCharacter::SetHasRifle(bool bNewHasRifle)
+void AFPSZombieGameCharacter::Use()
 {
-	bHasRifle = bNewHasRifle;
+	FHitResult hit = {};
+
+	if(GetWorld()->LineTraceSingleByChannel(hit,
+		GetTransform().GetLocation(),
+		FirstPersonCameraComponent->GetForwardVector()*500,
+		ECC_Visibility))
+	{
+		if(IPickupable* Pickupable = dynamic_cast<IPickupable*>(hit.Component.Get()))
+		{
+			Pickupable->GetPickupService()->Pickup(Pickupable,dynamic_cast<IItemStorage*>(GetComponentByClass(UItemStorage::StaticClass())->_getUObject()));
+		}
+	}
 }
+
 
 bool AFPSZombieGameCharacter::GetHasRifle()
 {
-	return bHasRifle;
+	//TODO: Check if has riffle as main weapon
+	//DUMMY CHECK IF ANY ITEM in bp
+	return Cast<UItemStorageComponent>(PlayerItemStorageComponent)->GetItems().Num()>0;
 }

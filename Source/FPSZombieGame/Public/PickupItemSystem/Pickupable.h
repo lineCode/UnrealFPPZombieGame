@@ -26,6 +26,6 @@ class FPSZOMBIEGAME_API IPickupable
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 
-	IPickupService* GetPickupService();
-	UItemDataAsset* GetItemData();
+	virtual IPickupService* GetPickupService() PURE_VIRTUAL(GetPickupService, return {};);
+	virtual UItemDataAsset* GetItemData() PURE_VIRTUAL(GetItemData, return {};);;
 };

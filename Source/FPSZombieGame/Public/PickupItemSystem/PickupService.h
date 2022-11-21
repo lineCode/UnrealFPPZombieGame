@@ -24,5 +24,5 @@ class FPSZOMBIEGAME_API IPickupService
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	bool Pickup(IPickupable* itemToPickup, IItemStorage* itemStorage);
+	virtual bool Pickup(IPickupable* itemToPickup, IItemStorage* itemStorage) PURE_VIRTUAL(Pickup, return {};);
 };

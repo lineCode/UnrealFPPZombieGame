@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/SphereComponent.h"
 #include "FPSZombieGameCharacter.h"
+#include "PickupItemSystem\Pickupable.h"
 #include "TP_PickUpComponent.generated.h"
 
 // Declaration of the delegate that will be called when someone picks this up
@@ -14,10 +15,10 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPickUp, AFPSZombieGameCharacter*,
 UCLASS(Blueprintable, BlueprintType, ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class FPSZOMBIEGAME_API UTP_PickUpComponent : public USphereComponent
 {
+
 	GENERATED_BODY()
 
 public:
-	
 	/** Delegate to whom anyone can subscribe to receive this event */
 	UPROPERTY(BlueprintAssignable, Category = "Interaction")
 	FOnPickUp OnPickUp;

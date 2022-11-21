@@ -21,9 +21,9 @@ void UItemStorageComponent::InvokeEvent(TScriptInterface<IItemStorage> ItemStora
 	ItemStorageUpdated.Broadcast(this);
 }
 
-void UItemStorageComponent::SetItemStorageImplementation(TScriptInterface<IItemStorage> Interface)
+void UItemStorageComponent::SetItemStorageImplementation(IItemStorage* Interface)
 {
-	if(Interface.GetInterface() == nullptr)
+	if(Interface == nullptr)
 		return;
 
 
@@ -37,7 +37,7 @@ void UItemStorageComponent::SetItemStorageImplementation(TScriptInterface<IItemS
 
 	}
 
-	ItemStorageImplementation = Interface;
+	ItemStorageImplementation = Interface->_getUObject();
 	ItemStorageImplementation->ItemStorageUpdated.AddDynamic(this, &UItemStorageComponent::InvokeEvent);
 }
 
@@ -46,7 +46,10 @@ void UItemStorageComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	SetItemStorageImplementation(NewObject<UObject>(this, ItemStorageInjection));
+	if(ItemStorageImplementation)
+	{
+		SetItemStorageImplementation(Cast<IItemStorage>(NewObject<UObject>(this, ItemStorageInjection)));
+	}
 
 	// ...
 	

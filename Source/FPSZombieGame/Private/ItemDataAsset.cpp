@@ -3,7 +3,34 @@
 
 #include "ItemDataAsset.h"
 
-IItemStorage* UItemDataAsset::GetCurrentItemStorage()
+#include "PickupItemSystem\PickupService.h"
+#include "PickupItemSystem\Usable.h"
+#include "PickupItemSystem\PickupServices\AttachItemService.h"
+#include "PickupItemSystem\Usabilities\NoUse.h"
+
+UItemDataAsset::UItemDataAsset()
 {
-	return nullptr;
+	CurrentItemStorage = {};
+	PickupService = UAttachItemService::StaticClass();
+	Usable = UNoUse::StaticClass();
+}
+
+IUsable* UItemDataAsset::GetUsable()
+{
+	if(!IsValid(Usable.GetObject()))
+	{
+		Usable = NewObject<UObject>(UsableInject);
+	}
+
+	return Usable.GetInterface();
+}
+
+IPickupService* UItemDataAsset::GetPickupService()
+{
+	if(!IsValid(PickupService.GetObject()))
+	{
+		PickupService = NewObject<UObject>(PickupServiceInject);
+	}
+
+	return PickupService.GetInterface();
 }

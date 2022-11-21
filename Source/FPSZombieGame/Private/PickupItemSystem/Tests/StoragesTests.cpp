@@ -45,7 +45,7 @@ bool FStorageComponentAddTest::RunTest(const FString& Parameters)
 	IItemStorage* ItemStorageImp = NewObject<UInfinityItemStorage>();
 	UItemDataAsset* basicItemData = NewObject<UItemDataAsset>();
 
-	comp->SetItemStorageImplementation(ItemStorageImp->_getUObject());
+	comp->SetItemStorageImplementation(ItemStorageImp);
 
 	TestTrue("Adding item to item storage", comp->AddItem(basicItemData));
 	TestTrue("Checking if ItemStorage contain item", comp->GetItems().Contains(basicItemData));
@@ -60,7 +60,7 @@ bool FStorageComponentRemoveTest::RunTest(const FString& Parameters)
 	IItemStorage* ItemStorageImp = NewObject<UInfinityItemStorage>();
 	UItemDataAsset* basicItemData = NewObject<UItemDataAsset>();
 
-	comp->SetItemStorageImplementation(ItemStorageImp->_getUObject());
+	comp->SetItemStorageImplementation(ItemStorageImp);
 	comp->AddItem(basicItemData);
 	TestTrue("Removing item from storage with item", comp->RemoveItem(basicItemData));
 
@@ -76,8 +76,8 @@ bool FStorageComponentImplmementationTest::RunTest(const FString& Parameters)
 	UItemDataAsset* basicItemData = NewObject<UItemDataAsset>();
 	ItemStorageImp->AddItem(basicItemData);
 
-	comp->SetItemStorageImplementation(ItemStorageImp->_getUObject());
-	comp->SetItemStorageImplementation(ItemStorageImp2->_getUObject());
+	comp->SetItemStorageImplementation(ItemStorageImp);
+	comp->SetItemStorageImplementation(ItemStorageImp2);
 	TestTrue("Checking if ItemStorageComp contain old items after implementation changed", comp->GetItems().Contains(basicItemData));
 
 
