@@ -11,15 +11,15 @@
 UItemDataAsset::UItemDataAsset()
 {
 	CurrentItemStorage = {};
-	PickupService = UAttachItemService::StaticClass();
-	Usable = UNoUse::StaticClass();
+	PickupService = {};
+	Usable = {};
 }
 
 IUsable* UItemDataAsset::GetUsable()
 {
 	if(!IsValid(Usable.GetObject()))
 	{
-		Usable = NewObject<UObject>(UsableInject);
+		Usable = NewObject<UObject>(this, UsableInject);
 	}
 
 	return Usable.GetInterface();
@@ -29,7 +29,7 @@ IPickupService* UItemDataAsset::GetPickupService()
 {
 	if(!IsValid(PickupService.GetObject()))
 	{
-		PickupService = NewObject<UObject>(PickupServiceInject);
+		PickupService = NewObject<UObject>(this, PickupServiceInject);
 	}
 
 	return PickupService.GetInterface();

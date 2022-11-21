@@ -26,7 +26,7 @@ private:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=AttachParams, meta=(AllowPrivateAccess = "true"))
 	FString SocketName;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	TObjectPtr<UInputMappingContext> UseMappingContext;
 
 	/** Fire Input Action */

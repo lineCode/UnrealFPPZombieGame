@@ -27,5 +27,5 @@ class FPSZOMBIEGAME_API IPickupable
 public:
 
 	virtual IPickupService* GetPickupService() PURE_VIRTUAL(GetPickupService, return {};);
-	virtual UItemDataAsset* GetItemData() PURE_VIRTUAL(GetItemData, return {};);;
+	virtual UItemDataAsset* GetItemData() PURE_VIRTUAL(GetItemData, return {};);
 };

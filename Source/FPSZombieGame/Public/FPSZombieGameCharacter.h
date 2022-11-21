@@ -54,6 +54,8 @@ class AFPSZombieGameCharacter : public ACharacter, public IAttachPlace
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	TObjectPtr<UInputAction> UseAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	float SearchDistance;
 public:
 	AFPSZombieGameCharacter();
 

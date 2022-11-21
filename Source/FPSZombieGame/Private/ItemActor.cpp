@@ -13,7 +13,11 @@ AItemActor::AItemActor()
 	PrimaryActorTick.bCanEverTick = true;
 
 	AttachableItemComponent = CreateDefaultSubobject<UAttachableItemComponent>("AttachableComponent");
+
 	PickupComponent = CreateDefaultSubobject<UPickupComponent>("PickupComponent");
+	SetRootComponent(PickupComponent);
+
+	AttachableItemComponent->AttachToComponent(PickupComponent,FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void AItemActor::Setup(UItemDataAsset* asset)
@@ -32,6 +36,11 @@ IPickupable* AItemActor::GetPickupable()
 void AItemActor::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if(ItemDataAssetInjection)
+	{
+		Setup(NewObject<UItemDataAsset>(this, ItemDataAssetInjection));
+	}
 	
 }
 

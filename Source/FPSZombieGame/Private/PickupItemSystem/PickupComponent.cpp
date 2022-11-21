@@ -9,6 +9,7 @@
 UPickupComponent::UPickupComponent()
 {
 	SphereRadius = 32.f;
+	SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);
 }
 
 IPickupService* UPickupComponent::GetPickupService()

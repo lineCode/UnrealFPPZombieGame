@@ -4,10 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "ItemDataAsset.h"
 #include "ItemActor.generated.h"
 
 class IPickupable;
-class UItemDataAsset;
 class UPickupComponent;
 class UAttachableItemComponent;
 UCLASS()
@@ -23,6 +23,10 @@ class FPSZOMBIEGAME_API AItemActor : public AActor
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	TObjectPtr<UItemDataAsset> ItemDataAsset;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
+	TSubclassOf<UItemDataAsset> ItemDataAssetInjection;
+
 public:	
 	// Sets default values for this actor's properties
 	AItemActor();

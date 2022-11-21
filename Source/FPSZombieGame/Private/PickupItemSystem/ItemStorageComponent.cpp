@@ -46,7 +46,7 @@ void UItemStorageComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if(ItemStorageImplementation)
+	if(!ItemStorageImplementation)
 	{
 		SetItemStorageImplementation(Cast<IItemStorage>(NewObject<UObject>(this, ItemStorageInjection)));
 	}

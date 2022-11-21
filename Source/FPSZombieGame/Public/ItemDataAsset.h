@@ -14,7 +14,7 @@ class IUsable;
 /**
  * 
  */
-UCLASS()
+UCLASS(Blueprintable)
 class FPSZOMBIEGAME_API UItemDataAsset : public UDataAsset
 {
 	GENERATED_BODY()
