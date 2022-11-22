@@ -1,6 +1,6 @@
-﻿#include "ItemDataAsset.h"
-#include "PickupItemSystem\ItemStorage.h"
-#include "PickupItemSystem\ItemStorageComponent.h"
+﻿#include "PickupItemSystem\ItemDataAsset.h"
+#include "StorageSystem\ItemStorage.h"
+#include "StorageSystem\ItemStorageComponent.h"
 #include "PickupItemSystem\ItemStorageTypes\InfinityItemStorage.h"
 constexpr auto BasicBindingTestFlags = EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter;
 

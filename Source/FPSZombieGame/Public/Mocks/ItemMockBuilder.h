@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "MockBuilder.h"
 #include "PickupItemSystem\PickupService.h"
-#include "PickupItemSystem\Usable.h"
+#include "UsabilitySystem\Usable.h"
 
 class UItemDataAsset;
 /**

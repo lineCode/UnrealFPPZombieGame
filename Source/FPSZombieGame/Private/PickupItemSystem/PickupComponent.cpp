@@ -3,8 +3,7 @@
 
 #include "PickupItemSystem/PickupComponent.h"
 
-#include "ItemDataAsset.h"
-#include "PickupItemSystem\PickupServices\AttachItemService.h"
+#include "PickupItemSystem\ItemDataAsset.h"
 
 UPickupComponent::UPickupComponent()
 {

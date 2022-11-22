@@ -3,11 +3,9 @@
 
 #include "PickupItemSystem/PickupServices/AttachItemService.h"
 
-#include "FPSZombieGameCharacter.h"
-#include "ItemDataAsset.h"
-#include "ShaderPrintParameters.h"
+#include "PickupItemSystem\ItemDataAsset.h"
 #include "PickupItemSystem\Attachable.h"
-#include "PickupItemSystem\ItemStorage.h"
+#include "StorageSystem\ItemStorage.h"
 #include "PickupItemSystem\Pickupable.h"
 
 UActorComponent* storageComponent;

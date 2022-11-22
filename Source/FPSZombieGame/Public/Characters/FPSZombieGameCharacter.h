@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "PickupItemSystem\ItemStorage.h"
+#include "StorageSystem\ItemStorage.h"
 #include "PickupItemSystem\AttachPlace.h"
 #include "InputAction.h"
 #include "InputActionValue.h"

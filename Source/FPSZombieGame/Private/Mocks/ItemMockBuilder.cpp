@@ -2,8 +2,8 @@
 
 
 #include "Mocks/ItemMockBuilder.h"
-#include "PickupItemSystem\Usable.h"
-#include "ItemDataAsset.h"
+#include "UsabilitySystem\Usable.h"
+#include "PickupItemSystem\ItemDataAsset.h"
 
 FItemMockBuilder* FItemMockBuilder::SetUsable(IUsable* usable)
 {

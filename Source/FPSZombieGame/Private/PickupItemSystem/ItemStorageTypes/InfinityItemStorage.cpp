@@ -3,7 +3,7 @@
 
 #include "PickupItemSystem/ItemStorageTypes/InfinityItemStorage.h"
 
-#include "ItemDataAsset.h"
+#include "PickupItemSystem\ItemDataAsset.h"
 
 UInfinityItemStorage::UInfinityItemStorage()
 {

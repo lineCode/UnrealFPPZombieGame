@@ -5,10 +5,10 @@
 
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "FPSZombieGameCharacter.h"
-#include "ItemDataAsset.h"
+#include "Characters\FPSZombieGameCharacter.h"
+#include "PickupItemSystem\ItemDataAsset.h"
 #include "PickupItemSystem\AttachPlace.h"
-#include "PickupItemSystem\Usable.h"
+#include "UsabilitySystem\Usable.h"
 
 void UAttachableItemComponent::Setup(UItemDataAsset* item)
 {
@@ -53,7 +53,7 @@ void UAttachableItemComponent::AttachTo(AActor* actor)
 	// Attach the weapon to the First Person Character
 
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
-	AttachToComponent(place->GetMeshWithSockets(), AttachmentRules, FName(SocketName));
+	GetOwner()->AttachToComponent(place->GetMeshWithSockets(),AttachmentRules,FName(SocketName));
 
 	// Set up action bindings
 	if(UseMappingContext && UseAction)

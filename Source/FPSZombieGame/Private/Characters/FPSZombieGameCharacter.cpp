@@ -1,14 +1,14 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "FPSZombieGameCharacter.h"
+#include "Characters\FPSZombieGameCharacter.h"
 
 #include "Animation/AnimInstance.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "PickupItemSystem\ItemStorage.h"
-#include "PickupItemSystem\ItemStorageComponent.h"
+#include "StorageSystem\ItemStorage.h"
+#include "StorageSystem\ItemStorageComponent.h"
 #include "PickupItemSystem\Pickupable.h"
 #include "PickupItemSystem\PickupService.h"
 

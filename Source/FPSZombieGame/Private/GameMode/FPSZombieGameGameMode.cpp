@@ -1,7 +1,7 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
-#include "FPSZombieGameGameMode.h"
-#include "FPSZombieGameCharacter.h"
+#include "GameMode/FPSZombieGameGameMode.h"
+#include "Characters\FPSZombieGameCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AFPSZombieGameGameMode::AFPSZombieGameGameMode()

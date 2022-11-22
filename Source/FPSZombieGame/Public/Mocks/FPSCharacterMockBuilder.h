@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "FPSZombieGameCharacter.h"
+#include "Characters\FPSZombieGameCharacter.h"
 #include "MockBuilder.h"
 
 /**

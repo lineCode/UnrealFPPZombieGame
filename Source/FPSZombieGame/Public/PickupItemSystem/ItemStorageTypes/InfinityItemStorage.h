@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PickupItemSystem\ItemStorage.h"
+#include "StorageSystem\ItemStorage.h"
 #include "UObject/NoExportTypes.h"
 #include "InfinityItemStorage.generated.h"
 

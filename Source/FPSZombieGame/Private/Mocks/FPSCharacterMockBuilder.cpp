@@ -3,7 +3,7 @@
 
 #include "Mocks/FPSCharacterMockBuilder.h"
 
-#include "PickupItemSystem\ItemStorageComponent.h"
+#include "StorageSystem\ItemStorageComponent.h"
 
 
 FPSCharacterMockBuilder* FPSCharacterMockBuilder::SetupItemStorageImplementation(IItemStorage* ItemStorage)

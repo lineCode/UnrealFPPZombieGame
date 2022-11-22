@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "PickupItemSystem\Usable.h"
+#include "UsabilitySystem\Usable.h"
 #include "UObject/NoExportTypes.h"
 #include "ShootProjectile.generated.h"
 

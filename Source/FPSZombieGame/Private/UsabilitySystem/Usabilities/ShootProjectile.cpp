@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "PickupItemSystem/Usabilities/ShootProjectile.h"
+#include "UsabilitySystem/Usabilities/ShootProjectile.h"
 
-#include "FPSZombieGameCharacter.h"
-#include "FPSZombieGameProjectile.h"
+#include "Characters\FPSZombieGameCharacter.h"
+#include "DamageSystem\FPSZombieGameProjectile.h"
 #include "Kismet\GameplayStatics.h"
 
 void UShootProjectile::Use(AActor* User)
