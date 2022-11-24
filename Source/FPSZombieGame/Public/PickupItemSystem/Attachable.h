@@ -23,5 +23,5 @@ class FPSZOMBIEGAME_API IAttachable
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual void AttachTo(AActor* actor) PURE_VIRTUAL(AttachTo );
-	virtual void DeAttach() PURE_VIRTUAL(DeAttach );
+	virtual void Detach() PURE_VIRTUAL(DeAttach );
 };

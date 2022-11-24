@@ -45,7 +45,7 @@ public:
 
 	virtual void AttachTo(AActor* actor) override;
 
-	virtual void DeAttach() override;
+	virtual void Detach() override;
 
 	void Use();
 };

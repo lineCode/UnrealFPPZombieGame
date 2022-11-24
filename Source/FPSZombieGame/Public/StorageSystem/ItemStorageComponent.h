@@ -38,5 +38,6 @@ public:
 
 	//Cheat to change implementation ig
 	void SetItemStorageImplementation(IItemStorage* Interface);
-		
+
+	virtual UItemDataAsset* GetBlockingItem(UItemDataAsset* ItemToAdd) override;
 };

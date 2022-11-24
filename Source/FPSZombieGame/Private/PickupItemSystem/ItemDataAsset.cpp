@@ -4,20 +4,20 @@
 #include "PickupItemSystem\ItemDataAsset.h"
 #include "PickupItemSystem\PickupService.h"
 #include "UsabilitySystem\Usable.h"
+#include "SwapingSystem\SwapService.h"
 
 UItemDataAsset::UItemDataAsset()
 {
 	CurrentItemStorage = {};
 	PickupService = {};
 	Usable = {};
+	SwapService = {};
 }
 
 IUsable* UItemDataAsset::GetUsable()
 {
 	if(!IsValid(Usable.GetObject()))
-	{
-		Usable = NewObject<UObject>(this, UsableInject);
-	}
+		Usable = UsableInject.GetDefaultObject();
 
 	return Usable.GetInterface();
 }
@@ -25,9 +25,15 @@ IUsable* UItemDataAsset::GetUsable()
 IPickupService* UItemDataAsset::GetPickupService()
 {
 	if(!IsValid(PickupService.GetObject()))
-	{
-		PickupService = NewObject<UObject>(this, PickupServiceInject);
-	}
+		PickupService = PickupServiceInject.GetDefaultObject();
 
 	return PickupService.GetInterface();
+}
+
+ISwapService* UItemDataAsset::GetSwapService()
+{
+	if(!IsValid(SwapService.GetObject()))
+		SwapService = SwapServiceInject.GetDefaultObject();
+
+	return SwapService.GetInterface();
 }

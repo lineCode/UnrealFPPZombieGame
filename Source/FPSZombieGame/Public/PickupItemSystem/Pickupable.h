@@ -28,4 +28,7 @@ public:
 
 	virtual IPickupService* GetPickupService() PURE_VIRTUAL(GetPickupService, return {};);
 	virtual UItemDataAsset* GetItemData() PURE_VIRTUAL(GetItemData, return {};);
+	virtual bool CanPickup() PURE_VIRTUAL(CanPickup, return {};);
+	virtual bool Pickup() PURE_VIRTUAL(Pickup, return {}; );
+	virtual bool Drop() PURE_VIRTUAL(Drop, return {}; );
 };

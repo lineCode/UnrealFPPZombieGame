@@ -4,7 +4,7 @@
 #include "StorageSystem/ItemStorageComponent.h"
 
 #include "PickupItemSystem\ItemDataAsset.h"
-#include "PickupItemSystem\ItemStorageTypes\InfinityItemStorage.h"
+#include "StorageSystem\ItemStorageTypes\InfinityItemStorage.h"
 
 // Sets default values for this component's properties
 UItemStorageComponent::UItemStorageComponent()
@@ -41,6 +41,16 @@ void UItemStorageComponent::SetItemStorageImplementation(IItemStorage* Interface
 	ItemStorageImplementation->ItemStorageUpdated.AddDynamic(this, &UItemStorageComponent::InvokeEvent);
 }
 
+UItemDataAsset* UItemStorageComponent::GetBlockingItem(UItemDataAsset* ItemToAdd)
+{
+	if(ItemStorageImplementation->GetItems().Num()>0)
+	{
+		return ItemStorageImplementation->GetItems()[0];
+	}
+
+	return nullptr;
+}
+
 // Called when the game starts
 void UItemStorageComponent::BeginPlay()
 {
@@ -66,6 +76,11 @@ void UItemStorageComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
 
 bool UItemStorageComponent::AddItem(UItemDataAsset* ItemToAdd)
 {
+	if(ItemStorageImplementation.GetInterface()->GetItems().Num()>0)
+	{
+		return false;
+	}
+
 	return ItemStorageImplementation->AddItem(ItemToAdd);
 }
 

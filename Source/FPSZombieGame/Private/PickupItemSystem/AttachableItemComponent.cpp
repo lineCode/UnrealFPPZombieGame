@@ -33,7 +33,10 @@ void UAttachableItemComponent::BindActionMapping()
 		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
 		{
 			// Fire
-			EnhancedInputComponent->BindAction(UseAction, ETriggerEvent::Triggered, this, &UAttachableItemComponent::Use);
+
+			EnhancedInputComponent->BindAction(
+				UseAction, ETriggerEvent::Triggered, this, &UAttachableItemComponent::Use);
+
 		}
 	}
 }
@@ -63,7 +66,7 @@ void UAttachableItemComponent::AttachTo(AActor* actor)
 
 }
 
-void UAttachableItemComponent::DeAttach()
+void UAttachableItemComponent::Detach()
 {
 	if (APlayerController* PlayerController = Cast<APlayerController>(CurrentOwner->GetController()))
 	{
@@ -71,8 +74,15 @@ void UAttachableItemComponent::DeAttach()
 		{
 			Subsystem->RemoveMappingContext(UseMappingContext);
 		}
+
+		if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerController->InputComponent))
+		{
+			EnhancedInputComponent->ClearBindingsForObject(this);
+		}
+
 	}
 
+	GetOwner()->DetachFromActor(FDetachmentTransformRules::KeepWorldTransform);
 	CurrentOwner = nullptr;
 }
 

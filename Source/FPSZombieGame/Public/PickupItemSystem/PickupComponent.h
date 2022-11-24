@@ -27,4 +27,10 @@ public:
 	virtual UItemDataAsset* GetItemData() override;
 
 	void Setup(UItemDataAsset* ItemData);
+
+	virtual bool CanPickup() override;
+
+	virtual bool Pickup() override;
+
+	virtual bool Drop() override;
 };

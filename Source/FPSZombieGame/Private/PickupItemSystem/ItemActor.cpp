@@ -25,6 +25,7 @@ void AItemActor::Setup(UItemDataAsset* asset)
 	ItemDataAsset = asset;
 	AttachableItemComponent->Setup(asset);
 	PickupComponent->Setup(asset);
+	asset->ItemInWorld=this;
 }
 
 IPickupable* AItemActor::GetPickupable()

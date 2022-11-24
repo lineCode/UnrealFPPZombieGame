@@ -6,6 +6,7 @@
 #include "Engine/DataAsset.h"
 #include "ItemDataAsset.generated.h"
 
+class ISwapService;
 class FItemMockBuilder;
 class IPickupService;
 class IItemStorage;
@@ -27,18 +28,25 @@ class FPSZOMBIEGAME_API UItemDataAsset : public UDataAsset
 	UPROPERTY(EditDefaultsOnly, meta=(MustImplement = "PickupService", DisallowedClasses = "ActorComponent"))
 	TSubclassOf<UObject> PickupServiceInject;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(EditDefaultsOnly, meta=(MustImplement = "SwapService", DisallowedClasses = "ActorComponent"))
+	TSubclassOf<UObject> SwapServiceInject;
+
+	UPROPERTY()
 	TScriptInterface<IUsable> Usable;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY()
 	TScriptInterface<IPickupService> PickupService;
+
+	TScriptInterface<ISwapService> SwapService;
 
 public:
 
 	UItemDataAsset();
 
 	TScriptInterface<IItemStorage> CurrentItemStorage;
-
+	TObjectPtr<AActor> ItemInWorld;
+	
 	IUsable* GetUsable();
 	IPickupService* GetPickupService();
+	ISwapService* GetSwapService();
 };

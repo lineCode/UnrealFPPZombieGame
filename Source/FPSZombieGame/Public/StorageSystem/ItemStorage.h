@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PickupItemSystem\ItemDataAsset.h"
 #include "UObject/Interface.h"
 #include "ItemStorage.generated.h"
 
@@ -15,6 +16,7 @@ class UItemStorage : public UInterface
 };
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemStorageUpdated, TScriptInterface<IItemStorage>, updatedItemStorage);
+
 /**
  * 
  */
@@ -25,7 +27,12 @@ class FPSZOMBIEGAME_API IItemStorage
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	FOnItemStorageUpdated ItemStorageUpdated;
-	bool virtual AddItem(UItemDataAsset* ItemToAdd) PURE_VIRTUAL(AddItem, return {};);
-	bool virtual RemoveItem(UItemDataAsset* ItemToRemove) PURE_VIRTUAL(RemoveItem, return {};);
-	TArray<UItemDataAsset*> virtual GetItems() PURE_VIRTUAL(RemoveItem, return {};);
+
+	virtual bool AddItem(UItemDataAsset* ItemToAdd) PURE_VIRTUAL(AddItem, return {};);
+
+	virtual bool RemoveItem(UItemDataAsset* ItemToRemove) PURE_VIRTUAL(RemoveItem, return {};);
+
+	virtual TArray<UItemDataAsset*> GetItems() PURE_VIRTUAL(RemoveItem, return {};);
+
+	virtual UItemDataAsset* GetBlockingItem(UItemDataAsset* ItemToAdd) PURE_VIRTUAL(GetBlockingItem, return {};);
 };

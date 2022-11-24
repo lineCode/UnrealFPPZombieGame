@@ -4,22 +4,26 @@
 
 #include "CoreMinimal.h"
 #include "MockBuilder.h"
-#include "PickupItemSystem\PickupService.h"
 #include "UsabilitySystem\Usable.h"
 
 class UItemDataAsset;
+class ISwapService;
+class IPickupService;
+
 /**
  * 
  */
 
 class FPSZOMBIEGAME_API FItemMockBuilder: public TMockBuilder<UItemDataAsset>
 {
-	IUsable* Usable;
-	IPickupService* Service;
+	IUsable* Usable = {};
+	IPickupService* Service = {};
+	ISwapService* SwapService = {};
 
 public:
 	FItemMockBuilder* SetUsable(IUsable* Usable);
 	FItemMockBuilder* SetPickupServie(IPickupService* PickupService);
+	FItemMockBuilder* SetSwapService(ISwapService* SwapService);
 
 	virtual UItemDataAsset* Construct() override;
 };

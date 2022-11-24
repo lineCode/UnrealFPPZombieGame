@@ -1,8 +1,8 @@
 ﻿#include "PickupItemSystem\ItemDataAsset.h"
 #include "StorageSystem\ItemStorage.h"
 #include "StorageSystem\ItemStorageComponent.h"
-#include "PickupItemSystem\ItemStorageTypes\InfinityItemStorage.h"
-constexpr auto BasicBindingTestFlags = EAutomationTestFlags::ApplicationContextMask | EAutomationTestFlags::ProductFilter;
+#include "StorageSystem\ItemStorageTypes\InfinityItemStorage.h"
+#include "Tests\TestsStatics.hpp"
 
 IMPLEMENT_SIMPLE_AUTOMATION_TEST(FAddItemToSimpleStorageTest, "Storage.InfinityStorage.Add", BasicBindingTestFlags)
 

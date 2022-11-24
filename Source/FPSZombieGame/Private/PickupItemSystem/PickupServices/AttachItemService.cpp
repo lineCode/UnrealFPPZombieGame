@@ -7,14 +7,18 @@
 #include "PickupItemSystem\Attachable.h"
 #include "StorageSystem\ItemStorage.h"
 #include "PickupItemSystem\Pickupable.h"
+#include "SwapingSystem\SwapService.h"
 
-UActorComponent* storageComponent;
 
 bool UAttachItemService::Pickup(IPickupable* itemToPickup, IItemStorage* itemStorage)
 {
-	storageComponent = Cast<UActorComponent>(itemStorage);
-	UActorComponent* pickupableComponent = Cast<UActorComponent>(itemToPickup);
+	if(!itemToPickup || !itemStorage || !itemToPickup->CanPickup())
+	{
+		return false;
+	}
 
+	UActorComponent* storageComponent = Cast<UActorComponent>(itemStorage);
+	UActorComponent* pickupableComponent = Cast<UActorComponent>(itemToPickup);
 
 	//Only actor to actor can be attached
 	if(	!IsValid(storageComponent) ||
@@ -25,17 +29,30 @@ bool UAttachItemService::Pickup(IPickupable* itemToPickup, IItemStorage* itemSto
 		return false;
 	}
 
-	TArray<UActorComponent*> attachableComponents = pickupableComponent->GetOwner()->GetComponentsByInterface(
-		UAttachable::StaticClass());
 
-	itemStorage->AddItem(itemToPickup->GetItemData());
-	itemToPickup->GetItemData()->CurrentItemStorage = itemStorage->_getUObject();
+	bool added = itemStorage->AddItem(itemToPickup->GetItemData());
 
-	for (UActorComponent* AttachableComponent : attachableComponents)
+	if(!added)
 	{
-		Cast<IAttachable>(AttachableComponent)->AttachTo( storageComponent->GetOwner());
+		UItemDataAsset* blockingItem = itemStorage->GetBlockingItem(itemToPickup->GetItemData());
+
+		if(blockingItem && blockingItem->GetSwapService())
+		{
+			added = blockingItem->GetSwapService()->Swap(blockingItem,itemToPickup->GetItemData());
+		}
+	}else
+	{
+		itemToPickup->GetItemData()->CurrentItemStorage = itemStorage->_getUObject();
+
+		itemToPickup->Pickup();
+		TArray<UActorComponent*> attachableComponents = pickupableComponent->GetOwner()->GetComponentsByInterface(
+			UAttachable::StaticClass());
+
+		for (UActorComponent* AttachableComponent : attachableComponents)
+		{
+			Cast<IAttachable>(AttachableComponent)->AttachTo( storageComponent->GetOwner());
+		}
 	}
 
-
-	return true;
+	return added;
 }
