@@ -8,6 +8,7 @@
 #include "PickupItemSystem\AttachPlace.h"
 #include "InputAction.h"
 #include "InputActionValue.h"
+#include "WeaponOwner.h"
 #include "FPSZombieGameCharacter.generated.h"
 class FPSCharacterMockBuilder;
 class UInputComponent;
@@ -21,7 +22,7 @@ class UItemStorageComponent;
 class UInputMappingContext;
 
 UCLASS(config=Game)
-class AFPSZombieGameCharacter : public ACharacter, public IAttachPlace
+class AFPSZombieGameCharacter : public ACharacter, public IAttachPlace, public IWeaponOwner
 {
 	GENERATED_BODY()
 
@@ -70,7 +71,7 @@ public:
 
 	/** Getter for the bool */
 	UFUNCTION(BlueprintCallable, Category = Weapon)
-	bool GetHasRifle();
+	virtual bool HasWeapon() override;
 
 protected:
 	/** Called for movement input */
@@ -94,4 +95,5 @@ public:
 
 	IItemStorage* GetItemStorageComponent();
 
+	virtual UItemDataAsset* GetWeapon() override;
 };

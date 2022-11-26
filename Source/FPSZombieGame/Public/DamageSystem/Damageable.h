@@ -6,6 +6,7 @@
 #include "UObject/Interface.h"
 #include "Damageable.generated.h"
 
+class IDamageService;
 // This class does not need to be modified.
 UINTERFACE(MinimalAPI)
 class UDamageable : public UInterface
@@ -22,4 +23,7 @@ class FPSZOMBIEGAME_API IDamageable
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
+	virtual void DealDamage(int damage) PURE_VIRTUAL(DealDamage);
+
+	virtual IDamageService* GetDamageService() PURE_VIRTUAL(GetDamageService, return {};);
 };

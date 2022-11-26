@@ -33,7 +33,7 @@ bool FAttachItemToPlayer::RunTest(const FString& Parameters)
 
 	TestTrue("Pickup service",ItemDataMock->GetPickupService()->Pickup(ItemActorMock->GetPickupable(), PlayerMock->GetItemStorageComponent()));
 
-	TestTrue("Player have information about wearing weapon",PlayerMock->GetHasRifle());
+	TestTrue("Player have information about wearing weapon",PlayerMock->HasWeapon());
 	TestTrue("Player have weapon in item storage comp",PlayerMock->GetItemStorageComponent()->GetItems().Contains(ItemDataMock));
 	TestTrue("Weapon have information about storage",ItemDataMock->CurrentItemStorage == PlayerMock->GetItemStorageComponent());
 
@@ -69,7 +69,7 @@ bool FAttachItemToPlayerSwap::RunTest(const FString& Parameters)
 	ItemDataMock1->GetPickupService()->Pickup(ItemActorMock1->GetPickupable(), PlayerMock->GetItemStorageComponent());
 
 	TestTrue("Swap",	ItemDataMock2->GetPickupService()->Pickup(ItemActorMock2->GetPickupable(), PlayerMock->GetItemStorageComponent()));
-	TestTrue("Player have information about wearing weapon",PlayerMock->GetHasRifle());
+	TestTrue("Player have information about wearing weapon",PlayerMock->HasWeapon());
 	TestTrue("Player have new weapon in item storage comp",PlayerMock->GetItemStorageComponent()->GetItems().Contains(ItemDataMock2));
 
 	TestTrue("Player dont have old weapon in item storage comp",!PlayerMock->GetItemStorageComponent()->GetItems().Contains(ItemDataMock1));

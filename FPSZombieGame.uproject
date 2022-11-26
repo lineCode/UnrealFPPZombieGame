@@ -57,6 +57,30 @@
 		{
 			"Name": "TestSamples",
 			"Enabled": true
+		},
+		{
+			"Name": "WebAPI",
+			"Enabled": true
+		},
+		{
+			"Name": "ChaosVehiclesPlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "PerformanceMonitor",
+			"Enabled": true
+		},
+		{
+			"Name": "ControlFlows",
+			"Enabled": true
+		},
+		{
+			"Name": "ExampleCustomDataInterface",
+			"Enabled": true
+		},
+		{
+			"Name": "SunPosition",
+			"Enabled": true
 		}
 	]
 }

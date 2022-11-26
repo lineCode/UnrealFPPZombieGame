@@ -81,6 +81,16 @@ IItemStorage* AFPSZombieGameCharacter::GetItemStorageComponent()
 	return Cast<IItemStorage>(PlayerItemStorageComponent);
 }
 
+UItemDataAsset* AFPSZombieGameCharacter::GetWeapon()
+{
+	if(HasWeapon())
+	{
+		return PlayerItemStorageComponent->GetItems()[0];
+	}
+
+	return nullptr;
+}
+
 
 void AFPSZombieGameCharacter::Move(const FInputActionValue& Value)
 {
@@ -129,9 +139,9 @@ void AFPSZombieGameCharacter::Use()
 }
 
 
-bool AFPSZombieGameCharacter::GetHasRifle()
+bool AFPSZombieGameCharacter::HasWeapon()
 {
 	//TODO: Check if has riffle as main weapon
 	//DUMMY CHECK IF ANY ITEM in bp
-	return Cast<UItemStorageComponent>(PlayerItemStorageComponent)->GetItems().Num() > 0;
+	return PlayerItemStorageComponent->GetItems().Num() > 0;
 }
