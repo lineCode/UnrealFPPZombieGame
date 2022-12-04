@@ -15,8 +15,6 @@ class UItemStorage : public UInterface
 	GENERATED_BODY()
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnItemStorageUpdated, TScriptInterface<IItemStorage>, updatedItemStorage);
-
 /**
  * 
  */
@@ -26,8 +24,8 @@ class FPSZOMBIEGAME_API IItemStorage
 
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
-	FOnItemStorageUpdated ItemStorageUpdated;
 
+	UFUNCTION()
 	virtual bool AddItem(UItemDataAsset* ItemToAdd) PURE_VIRTUAL(AddItem, return {};);
 
 	virtual bool RemoveItem(UItemDataAsset* ItemToRemove) PURE_VIRTUAL(RemoveItem, return {};);

@@ -89,11 +89,15 @@ protected:
 
 public:
 	/** Returns Mesh1P subobject **/
+	UFUNCTION(BlueprintCallable, Category = Player)
 	virtual USkeletalMeshComponent* GetMeshWithSockets() { return Mesh1P; }
+
+	UFUNCTION(BlueprintCallable, Category = Player)
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
 	IItemStorage* GetItemStorageComponent();
 
+	UFUNCTION(BlueprintCallable, Category = Weapon)
 	virtual UItemDataAsset* GetWeapon() override;
 };

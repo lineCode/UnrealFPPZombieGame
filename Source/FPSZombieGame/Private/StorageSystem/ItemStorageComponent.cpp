@@ -3,7 +3,9 @@
 
 #include "StorageSystem/ItemStorageComponent.h"
 
+#include "Game\ZombieGameInstance.h"
 #include "PickupItemSystem\ItemDataAsset.h"
+#include "Signals\InventoryUpdatedSignal.h"
 #include "StorageSystem\ItemStorageTypes\InfinityItemStorage.h"
 
 // Sets default values for this component's properties
@@ -15,12 +17,6 @@ UItemStorageComponent::UItemStorageComponent()
 	// ...
 }
 
-
-void UItemStorageComponent::InvokeEvent(TScriptInterface<IItemStorage> ItemStorage)
-{
-	ItemStorageUpdated.Broadcast(this);
-}
-
 void UItemStorageComponent::SetItemStorageImplementation(IItemStorage* Interface)
 {
 	if(Interface == nullptr)
@@ -29,7 +25,6 @@ void UItemStorageComponent::SetItemStorageImplementation(IItemStorage* Interface
 
 	if(ItemStorageImplementation.GetInterface() != nullptr)
 	{
-		ItemStorageImplementation->ItemStorageUpdated.RemoveDynamic(this, &UItemStorageComponent::InvokeEvent);
 		TArray<UItemDataAsset*> itemHeld = GetItems();
 
 		for(UItemDataAsset* item : itemHeld)
@@ -38,7 +33,7 @@ void UItemStorageComponent::SetItemStorageImplementation(IItemStorage* Interface
 	}
 
 	ItemStorageImplementation = Interface->_getUObject();
-	ItemStorageImplementation->ItemStorageUpdated.AddDynamic(this, &UItemStorageComponent::InvokeEvent);
+	SignalBus->InvokeSignal(NewObject<UInventoryUpdatedSignal>());
 }
 
 UItemDataAsset* UItemStorageComponent::GetBlockingItem(UItemDataAsset* ItemToAdd)
@@ -55,6 +50,8 @@ UItemDataAsset* UItemStorageComponent::GetBlockingItem(UItemDataAsset* ItemToAdd
 void UItemStorageComponent::BeginPlay()
 {
 	Super::BeginPlay();
+
+	SignalBus = GetWorld()->GetGameInstance<UZombieGameInstance>()->GetSignalBus();
 
 	if(!ItemStorageImplementation)
 	{
@@ -81,12 +78,32 @@ bool UItemStorageComponent::AddItem(UItemDataAsset* ItemToAdd)
 		return false;
 	}
 
-	return ItemStorageImplementation->AddItem(ItemToAdd);
+	bool added = ItemStorageImplementation->AddItem(ItemToAdd);
+
+	if(added)
+	{
+		InvokeSignal();
+	}
+
+	return added;
+}
+
+void UItemStorageComponent::InvokeSignal()
+{
+	UInventoryUpdatedSignal* signal = NewObject<UInventoryUpdatedSignal>();
+	signal->ItemStorage = this;
+	SignalBus->InvokeSignal(signal);
 }
 
 bool UItemStorageComponent::RemoveItem(UItemDataAsset* ItemToRemove)
 {
-	return ItemStorageImplementation->RemoveItem(ItemToRemove);
+	if(ItemStorageImplementation->RemoveItem(ItemToRemove))
+	{
+		InvokeSignal();
+		return true;
+	}
+
+	return false;
 }
 
 TArray<UItemDataAsset*> UItemStorageComponent::GetItems()

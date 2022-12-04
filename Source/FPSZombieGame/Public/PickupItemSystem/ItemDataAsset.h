@@ -37,13 +37,17 @@ class FPSZOMBIEGAME_API UItemDataAsset : public UDataAsset
 	UPROPERTY()
 	TScriptInterface<IPickupService> PickupService;
 
+	UPROPERTY()
 	TScriptInterface<ISwapService> SwapService;
 
 public:
 
 	UItemDataAsset();
 
+	UPROPERTY()
 	TScriptInterface<IItemStorage> CurrentItemStorage;
+
+	UPROPERTY(BlueprintReadOnly, Category=Weapon)
 	TObjectPtr<AActor> ItemInWorld;
 	
 	IUsable* GetUsable();

@@ -16,7 +16,6 @@ bool UInfinityItemStorage::AddItem(UItemDataAsset* ItemToAdd)
 		return false;
 
 	ownedItems.Add(ItemToAdd);
-	ItemStorageUpdated.Broadcast(this);
 
 	return true;
 }
@@ -25,8 +24,6 @@ bool UInfinityItemStorage::RemoveItem(UItemDataAsset* ItemToRemove)
 {
 	if(!IsValid(ItemToRemove) || ownedItems.Remove(ItemToRemove)<=0)
 		return false;
-
-	ItemStorageUpdated.Broadcast(this);
 
 	return true;
 }

@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "ItemStorage.h"
 #include "Components/ActorComponent.h"
+#include "Game\ZombieGameInstance.h"
 #include "ItemStorageComponent.generated.h"
 
 
@@ -20,12 +21,15 @@ protected:
 	UPROPERTY(EditDefaultsOnly, meta=(MustImplement = "ItemStorage", DisallowedClasses = "ActorComponent"))
 	TSubclassOf<UObject> ItemStorageInjection;
 
-	UFUNCTION()
-	void InvokeEvent(TScriptInterface<IItemStorage> ItemStorage);
+	UPROPERTY()
+	TObjectPtr<USignalBus> SignalBus;
 
 	virtual void BeginPlay() override;
 
+	void InvokeSignal();
+
 public:
+
 	UItemStorageComponent();
 
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
